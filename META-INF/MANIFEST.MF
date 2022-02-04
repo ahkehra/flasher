@@ -1,0 +1,21 @@
+Manifest-Version: 1.0
+Created-By: 1.0 (Android SignApk)
+
+Name: META-INF/com/google/android/updater-script
+SHA1-Digest: surH1Bs4hR30JclyYkFBB7d7164=
+
+Name: META-INF/com/google/android/update-binary
+SHA1-Digest: 9X8fkhDovfeWpfd7WvelkqNKdi4=
+
+Name: busybox-arm
+SHA1-Digest: grJMEjOjbgjcn93OftVcP2CPT24=
+
+Name: installer.sh
+SHA1-Digest: lJr79CbDeEB4t1yJCJ8gQ7UIx9s=
+
+Name: LICENSE
+SHA1-Digest: eNC0RSxpmT1pWMa1aFTlolIscT4=
+
+Name: tar_gapps/Lawns.tar.xz
+SHA1-Digest: 0VYb4B6lbDpwxgUD1gpNVxR0ckw=
+

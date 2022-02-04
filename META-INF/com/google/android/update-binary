@@ -1,0 +1,59 @@
+#!/sbin/sh
+#
+############################################
+#
+# This file is a part of the FlameGApps Project by ayandebnath @xda-developers
+#
+# Taken from OpenGApps.org update-binary
+# For reference, check https://github.com/opengapps/opengapps/blob/master/scripts/inc.installer.sh
+#
+############################################
+# File Name    : update-binary
+# Last Updated : 2021-05-13
+############################################
+#
+
+export ZIPFILE="$3"
+export OUTFD="/proc/self/fd/$2"
+export TMP="/tmp"
+
+bb="$TMP/busybox-arm"
+l="$TMP/bin"
+
+setenforce 0
+
+ui_print() {
+  echo "ui_print $1
+    ui_print" >> $OUTFD
+}
+
+ui_print "- Preparing Installer"
+
+for f in busybox-arm installer.sh; do
+  unzip -o "$ZIPFILE" "$f" -d "$TMP"
+done
+
+chmod +x "$TMP/busybox-arm"
+
+if [ -e "$bb" ]; then
+  install -d "$l"
+  for i in $($bb --list); do
+    if ! ln -sf "$bb" "$l/$i" && ! $bb ln -sf "$bb" "$l/$i" && ! $bb ln -f "$bb" "$l/$i" ; then
+      # create script wrapper if symlinking and hardlinking failed because of restrictive selinux policy
+      if ! echo "#!$bb" > "$l/$i" || ! chmod +x "$l/$i" ; then
+        ui_print "ERROR 10: Failed to set-up pre-bundled busybox"
+        exit 1
+      fi
+    fi
+  done
+else
+  exit 1
+fi
+
+PATH="$l:$PATH" $bb sh "$TMP/installer.sh" "$@"
+  exit "$?"
+else
+  ui_print "ERROR 69: Wrong architecture to set-up pre-bundled busybox"
+  exit 1
+fi
+
