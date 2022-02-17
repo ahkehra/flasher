@@ -18,7 +18,7 @@
 ##
 
 # List of the addon files
-addon_apps_list="
+addon_list="
 "
 
 # Pre-installed unnecessary app list
